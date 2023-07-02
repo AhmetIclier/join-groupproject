@@ -16,6 +16,34 @@ class Contact extends HTMLElement {
         "#462F8A",
     ];
 
+    contactChildren = {
+        firstLetters: {
+            htmlTag: 'div',
+            htmlElement: '',
+            cssClass: '',
+            value:''
+        },
+        divForNameAndEmail: {
+            htmlTag: 'div',
+            htmlElement: '',
+            cssClass: '',
+            value:''
+        },
+        name: {
+            htmlTag: 'div',
+            htmlElement: '',
+            cssClass: '',
+            value:''
+        },
+        email: {
+            htmlTag: 'div',
+            htmlElement: '',
+            cssClass: '',
+            value:''
+        },
+
+    }
+
     /**HTML data */
     firstLettersHTML = document.createElement("div");
     divForNameAndEmail = document.createElement("div");
