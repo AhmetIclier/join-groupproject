@@ -21,7 +21,7 @@ class Contact extends HTMLElement {
             name: "firstLetters",
             htmlTag: "div",
             htmlElement: "",
-            cssClass: "",
+            cssClass: "contactCardFirstLetters",
             value: "",
             children: "",
         },
@@ -29,7 +29,7 @@ class Contact extends HTMLElement {
             name: "divForNameAndEmail",
             htmlTag: "div",
             htmlElement: "",
-            cssClass: "",
+            cssClass: "contactCardDivForNameAndEmail",
             value: "",
             children: "",
         },
@@ -37,7 +37,7 @@ class Contact extends HTMLElement {
             name: "name",
             htmlTag: "div",
             htmlElement: "",
-            cssClass: "",
+            cssClass: "contactCardName",
             value: "",
             children: "",
         },
@@ -45,7 +45,7 @@ class Contact extends HTMLElement {
             email: "email",
             htmlTag: "div",
             htmlElement: "",
-            cssClass: "",
+            cssClass: "contactCardEmail",
             value: "",
             children: "",
         },
@@ -74,6 +74,8 @@ class Contact extends HTMLElement {
             this.getSortingLetter();
         }
         this.loadHTML();
+        this.loadCSSNumbertwo();
+
         this.getColor();
         this.loadValues();
         this.loadCSS();
@@ -122,6 +124,12 @@ class Contact extends HTMLElement {
         this.divForNameAndEmail.classList.add("contactCardDivForNameAndEmail");
         this.nameHTML.classList.add("contactCardName");
         this.emailHTML.classList.add("contactCardEmail");
+    }
+
+    loadCSSNumbertwo() {
+        this.contactChildren.forEach(element => {
+            element.htmlElement.classList.add(element.cssClass)
+        });
     }
 
     loadValues() {
