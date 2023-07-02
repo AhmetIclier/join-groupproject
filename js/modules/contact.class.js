@@ -16,33 +16,35 @@ class Contact extends HTMLElement {
         "#462F8A",
     ];
 
-    contactChildren = {
-        firstLetters: {
-            htmlTag: 'div',
-            htmlElement: '',
-            cssClass: '',
-            value:''
+    contactChildren = {{ name: 'firstLetters', htmlTag: "div", htmlElement: "",
+            cssClass: "",
+            value: "",
+            children: "",},
+        {
+            name: 'divForNameAndEmail',
+            htmlTag: "div",
+            htmlElement: "",
+            cssClass: "",
+            value: "",
+            children: "",
         },
-        divForNameAndEmail: {
-            htmlTag: 'div',
-            htmlElement: '',
-            cssClass: '',
-            value:''
+        {
+            name: 'name',
+            htmlTag: "div",
+            htmlElement: "",
+            cssClass: "",
+            value: "",
+            children: "",
         },
-        name: {
-            htmlTag: 'div',
-            htmlElement: '',
-            cssClass: '',
-            value:''
+        {
+            email: 'email',
+            htmlTag: "div",
+            htmlElement: "",
+            cssClass: "",
+            value: "",
+            children: "",
         },
-        email: {
-            htmlTag: 'div',
-            htmlElement: '',
-            cssClass: '',
-            value:''
-        },
-
-    }
+    };
 
     /**HTML data */
     firstLettersHTML = document.createElement("div");
@@ -66,12 +68,15 @@ class Contact extends HTMLElement {
             this.getFirstLetters();
             this.getSortingLetter();
         }
+        this.loadHTML();
         this.getColor();
         this.loadValues();
         this.loadCSS();
-        this.loadHTML();
+        this.loadChildren();
         this.loadClickFunction();
     }
+
+    //data functions
 
     getFirstLetters() {
         let positionOfSecondname = this.name.indexOf(" ");
@@ -91,7 +96,17 @@ class Contact extends HTMLElement {
         this.color = this.colors[colorNumber];
     }
 
+    //html functions
+
     loadHTML() {
+        debugger;
+        for (const key in this.contactChildren) {
+            let test = key[0];
+            debugger;
+        }
+    }
+
+    loadChildren() {
         this.appendChild(this.firstLettersHTML);
         this.appendChild(this.divForNameAndEmail);
         this.divForNameAndEmail.appendChild(this.nameHTML);
