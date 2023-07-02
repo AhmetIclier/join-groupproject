@@ -64,4 +64,5 @@ function saveContact(e) {
     selectedContact.email = form.children[2].value;
     contacts.save();
     updateContacts();
+    contactDetails.reloadContactData();
 }
