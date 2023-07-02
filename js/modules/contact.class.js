@@ -16,12 +16,9 @@ class Contact extends HTMLElement {
         "#462F8A",
     ];
 
-    contactChildren = {{ name: 'firstLetters', htmlTag: "div", htmlElement: "",
-            cssClass: "",
-            value: "",
-            children: "",},
+    contactChildren = [
         {
-            name: 'divForNameAndEmail',
+            name: "firstLetters",
             htmlTag: "div",
             htmlElement: "",
             cssClass: "",
@@ -29,7 +26,7 @@ class Contact extends HTMLElement {
             children: "",
         },
         {
-            name: 'name',
+            name: "divForNameAndEmail",
             htmlTag: "div",
             htmlElement: "",
             cssClass: "",
@@ -37,14 +34,22 @@ class Contact extends HTMLElement {
             children: "",
         },
         {
-            email: 'email',
+            name: "name",
             htmlTag: "div",
             htmlElement: "",
             cssClass: "",
             value: "",
             children: "",
         },
-    };
+        {
+            email: "email",
+            htmlTag: "div",
+            htmlElement: "",
+            cssClass: "",
+            value: "",
+            children: "",
+        },
+    ];
 
     /**HTML data */
     firstLettersHTML = document.createElement("div");
@@ -99,11 +104,9 @@ class Contact extends HTMLElement {
     //html functions
 
     loadHTML() {
-        debugger;
-        for (const key in this.contactChildren) {
-            let test = key[0];
-            debugger;
-        }
+        this.contactChildren.forEach(element => {
+            element.htmlElement = document.createElement(element.htmlTag)
+        });
     }
 
     loadChildren() {
