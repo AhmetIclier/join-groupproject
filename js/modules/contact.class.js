@@ -137,6 +137,18 @@ class Contact extends HTMLElement {
             contactDetails.updateContact();
         });
     }
+
+    reload() {
+        if (this.name) {
+            this.getFirstLetters();
+            this.getSortingLetter();
+        }
+        this.getColor();
+        this.loadValues();
+        this.loadCSS();
+        this.loadHTML();
+        this.loadClickFunction();
+    }
 }
 
 customElements.define("contact-card", Contact);

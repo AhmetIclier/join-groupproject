@@ -236,3 +236,27 @@ button:hover {
         width: 15.6rem;
     }
 }
+
+.purpleCat {
+    background-color: #8AA4FF;
+}
+
+.redCat {
+    background-color: #FF0000;
+}
+
+.greenCat {
+    background-color: #2AD300;
+}
+
+.orangeCat {
+    background-color: #FF8A00;
+}
+
+.pinkCat {
+    background-color: #E200BE;
+}
+
+.blueCat {
+    background-color: #0038FF;
+}

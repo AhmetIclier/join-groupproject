@@ -56,13 +56,20 @@ function loadIntoModal() {
     }
 }
 
-function saveContact(e) {
+async function saveContact(e) {
     e.preventDefault();
     const form = document.querySelector("form");
     selectedContact.name = form.children[0].value;
     selectedContact.phone = form.children[1].value;
     selectedContact.email = form.children[2].value;
     contacts.save();
-    updateContacts();
-    contactDetails.reloadContactData();
+    await updateContacts();
+    selectedContact.reload();
+    contactDetails.updateContact();
+}
+
+async function deleteContact() {
+    contacts.delete();
+    await updateContacts();
+    await switchModal();
 }

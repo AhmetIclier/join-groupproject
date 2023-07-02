@@ -94,6 +94,14 @@ class ContactList extends HTMLElement {
         this.sortContacts();
         this.saveToRemoteStorage();
     }
+
+    delete() {
+        const contactIndex = this.contactList.findIndex(
+            (element) => element === selectedContact
+        );
+        this.contactList.splice(contactIndex, 1)
+        this.save;
+    }
 }
 
 customElements.define("contact-list", ContactList);

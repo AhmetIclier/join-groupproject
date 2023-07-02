@@ -1,0 +1,110 @@
+@media (max-width: 1360px) {
+    .addContactButton {
+        bottom: 7rem !important;
+    }
+
+    contact-list {
+        height: calc(100vh - 90px - 78.5px - 16px);
+    }
+}
+
+@media (max-width: 1170px) {
+    .rightSide {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+        padding-top: 1.62rem;
+        padding-bottom: 6rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    /* OVERLAY START */
+
+    dialog {
+        width: 100%;
+        height: 100vh;
+        max-width: unset;
+        max-height: unset;
+        margin: 0;
+    }
+
+    .newContactModal {
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    /* OVERLAY END */
+
+    /* LEFT SIDE START*/
+
+    .leftSide {
+        border-radius: 0;
+        align-items: center;
+        height: 50vh;
+        padding: 0;
+    }
+
+    .leftSide img {
+        display: none;
+    }
+
+    .close {
+        position: absolute;
+        right: 0.96rem;
+        top: 1.62rem;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(228deg)
+            brightness(103%) contrast(103%);
+    }
+
+    /* OVERLAY END */
+
+    /* RIGHT SIDE START */
+
+    .rightSide {
+        flex-direction: column;
+        padding: 0;
+        align-items: center;
+        height: 50vh;
+        padding-top: 3.06rem;
+    }
+
+    .formCloseAndButtons form {
+        align-items: center;
+    }
+
+    .formCloseAndButtons form input {
+        margin: 0;
+    }
+
+    .human {
+        position: absolute;
+        top: calc(35vh);
+    }
+
+    .cancel {
+        display: none;
+    }
+
+    /* RIGHT SIDE END */
+}
+
+
+@media (max-width: 430px) {
+    .rightSide input{
+        width: 20rem !important;
+    }
+
+    .rightSide form{
+        gap: 1.8rem;
+    }
+
+    .leftSide .addContactTitle{
+        font-size: 2.8rem;
+    }
+
+    .leftSide .tasksAreBetterWithATeam{
+        font-size: 1.3rem;
+    }
+}
