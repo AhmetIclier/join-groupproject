@@ -467,6 +467,32 @@ textarea {
     display: none;
 }
 
+.progress-bar{
+    display: flex;
+    align-items: center;
+}
+
+progress {
+    background-color: transparent;
+    color: #29ABE2;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 8px;
+    margin-right: 8px;
+}
+
+/* Für Firefox */
+progress::-moz-progress-bar {
+    background: #29ABE2;
+    border-radius: 10px;
+}
+
+/* Für WebKit (Chrome, Safari) */
+progress::-webkit-progress-value {
+    background: #29ABE2;
+    border-radius: 10px;
+}
+
 /*********** Responsive Area ***********/
 
 @media (max-width:1700px) {

@@ -46,7 +46,7 @@ function renderBoardTodos() {
 
 function renderProgressBar(todos, container, i){
     let subtasks = todos[i].subtasks;
-    if (subtasks){
+    if (subtasks.length !== 0){
         let progressDiv = container.querySelectorAll(".progress-bar");
         let completedSubtasks = 0;
         subtasks.forEach( subtask =>{
@@ -56,7 +56,7 @@ function renderProgressBar(todos, container, i){
         })
         progressDiv[i].innerHTML = `
             <progress value="${completedSubtasks}" max="${subtasks.length}"></progress>
-            ${completedSubtasks} / ${subtasks.length}
+            ${completedSubtasks} / ${subtasks.length} Done
             `;
     }
 }
@@ -128,6 +128,7 @@ function renderBoardProgress() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
+        renderProgressBar(todos, container, i)
     }
 }
 
@@ -162,6 +163,7 @@ function renderBoardFeedback() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
+        renderProgressBar(todos, container, i)
     }
 }
 
@@ -195,6 +197,7 @@ function renderBoardDone() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
+        renderProgressBar(todos, container, i)
     }
 }
 

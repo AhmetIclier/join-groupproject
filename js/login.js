@@ -96,7 +96,7 @@ function generateSignup() {
             <div class="h-divider"></div>
         </div>
         <form class="form" onsubmit="loadSignUptoRemoteStorage(event)">
-            <input type="text" placeholder="Name" required name="name">
+            <input type="text" human placeholder="Name" required name="name">
             <input type="email" placeholder="Email" required name="email">
             <input type="password" placeholder="Password" minlength="8" required name="password">
             <div class="log-btns">
