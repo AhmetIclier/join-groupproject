@@ -4,7 +4,7 @@
         <h1>Board</h1>
     </div>
     <div class="interactive-container">
-        <input class="lupe-img input-norm" type="text" placeholder="Find Task" id="search-task" onkeyup="searchTask()">
+        <input class="lupe-img input-norm" type="text" placeholder="Find Task" id="search-task" onkeyup="searchTask('search-task')">
         <button class="button-norm" onclick="switchModal('add_task.html', 'addtask'), initBoard(), setStatus('todo')">Add Task
         <img src="../../assets/img/icons/cross-white.svg" alt="Cross Button">
         </button>
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="input-field-container">
-        <input type="text" placeholder="Find Task" class="lupe-img input-mobile">
+        <input type="text" placeholder="Find Task" class="lupe-img input-mobile" id="search-task-mobile" onkeyup="searchTask('search-task-mobile')">
     </div>
     <!--*** END Mobile Header ***-->
 

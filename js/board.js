@@ -386,8 +386,8 @@ function prioStatusDetailView(taskId) {
 /**
  * calls search-functions for every status
  */
-function searchTask() {
-    let search = document.getElementById('search-task').value;
+function searchTask(id) {
+    let search = document.getElementById(id).value;
     search = search.toLowerCase();
     renderSearchTodo(search);
     renderSearchProgress(search);
