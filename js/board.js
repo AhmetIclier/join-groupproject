@@ -18,7 +18,7 @@ function renderBoardTodos() {
     let todos = getBoardTasks('todo');
     for (let i = 0; i < todos.length; i++) {
         container.innerHTML += /*html*/`
-        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})">
+        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
             <div class="category-header">  
                 <div class="category ${todos[i].catColor}Cat">
                 <h3>${todos[i].category}</h3>
@@ -40,21 +40,24 @@ function renderBoardTodos() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
-        renderProgressBar(todos, container, i)
+        renderProgressBar(todos[i], container, i)
     }
 }
 
 function renderProgressBar(todos, container, i){
-    let subtasks = todos[i].subtasks;
+    let task = todos;
+    let subtasks = todos.subtasks;
     if (subtasks.length !== 0){
-        let progressDiv = container.querySelectorAll(".progress-bar");
+        let taskId = "#taskId" + task["task-id"];
+        let progressDiv = container.querySelector(taskId);
         let completedSubtasks = 0;
         subtasks.forEach( subtask =>{
             if (subtask.completed){
                 completedSubtasks++;
             }
         })
-        progressDiv[i].innerHTML = `
+        let div = progressDiv.querySelector(".progress-bar");
+        div.innerHTML = `
             <progress value="${completedSubtasks}" max="${subtasks.length}"></progress>
             ${completedSubtasks} / ${subtasks.length} Done
             `;
@@ -106,7 +109,7 @@ function renderBoardProgress() {
     let todos = getBoardTasks("inProgress");
     for (let i = 0; i < todos.length; i++) {
         container.innerHTML += /*html*/`
-        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})">
+        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
         <div class="category-header">      
             <div class="category ${todos[i].catColor}Cat">
                 <h3>${todos[i].category}</h3>
@@ -128,7 +131,7 @@ function renderBoardProgress() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
-        renderProgressBar(todos, container, i)
+        renderProgressBar(todos[i], container, i)
     }
 }
 
@@ -141,7 +144,7 @@ function renderBoardFeedback() {
     let todos = getBoardTasks('feedback');
     for (let i = 0; i < todos.length; i++) {
         container.innerHTML += /*html*/`
-        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})">
+        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
         <div class="category-header">
             <div class="category ${todos[i].catColor}Cat">
                 <h3>${todos[i].category}</h3>
@@ -163,7 +166,7 @@ function renderBoardFeedback() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
-        renderProgressBar(todos, container, i)
+        renderProgressBar(todos[i], container, i)
     }
 }
 
@@ -176,7 +179,7 @@ function renderBoardDone() {
     let todos = getBoardTasks('done');
     for (let i = 0; i < todos.length; i++) {
         container.innerHTML += /*html*/`
-        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})">
+        <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
         <div class="category-header">   
             <div class="category ${todos[i].catColor}Cat">
                 <h3>${todos[i].category}</h3>
@@ -197,7 +200,7 @@ function renderBoardDone() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
-        renderProgressBar(todos, container, i)
+        renderProgressBar(todos[i], container, i)
     }
 }
 
@@ -354,7 +357,7 @@ function createSubtaskHTML(subtask, isChecked, task, subtaskNum) {
 async function saveCheck(taskId, subtaskNum){
     allTasks[taskId].subtasks[subtaskNum].completed = !allTasks[taskId].subtasks[subtaskNum].completed;
     await uploadTasks();
-    initBoard();
+    await initBoard();
 }
 
 /**
@@ -404,13 +407,12 @@ function renderSearchTodo(search) {
     let todoTasks = getBoardTasks('todo');
     todoContainer.innerHTML = '';
 
-    let progressbarNum = 0;
     for (let i = 0; i < todoTasks.length; i++) {
         let title = todoTasks[i].title;
         let description = todoTasks[i].description;
         if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
             todoContainer.innerHTML += `
-            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todoTasks[i]['task-id']}')" ondragstart="startDragging(${todoTasks[i]['task-id']})">
+            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todoTasks[i]['task-id']}')" ondragstart="startDragging(${todoTasks[i]['task-id']})" id="taskId${todoTasks[i]["task-id"]}">
                 <div class="category ${todoTasks[i].catColor}Cat">
                     <h3>${todoTasks[i].category}</h3>
                 </div>
@@ -426,8 +428,7 @@ function renderSearchTodo(search) {
             </div>
             `;
             renderBoardAssignings(todoTasks[i], i);
-            renderProgressBar(todoTasks, todoContainer, progressbarNum)
-            progressbarNum++;
+            renderProgressBar(todoTasks[i], todoContainer, i)
         }
     }
 }
