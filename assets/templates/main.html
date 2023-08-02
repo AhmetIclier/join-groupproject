@@ -53,8 +53,19 @@
                     </a>
                     <div class="divForProfileImage">
                         <button class="profileImage"></button>
-                        <button onclick="location.href = '../../index.html'" class="logout"><img
-                                src="../../assets/img/icons/logout.svg"></button>
+                        <nav id="menu" class="hide-overlay-menu show-overlay-menu">
+                            <div class="menu-container">
+                                <a class="menu-link" href="../../index.html">
+                                    <span class="menu-button">Logout</span>
+                                </a>
+                                <a class="menu-link" onclick="changeContentHTML('../templates/legal_notice.html')">
+                                    <span class="menu-button">Legal Notice</span>
+                                </a>
+                                <a class="menu-link" onclick="changeContentHTML('../templates/privacy_policy.html')">
+                                    <span class="menu-button">Privacy Policy</span>
+                                </a>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>

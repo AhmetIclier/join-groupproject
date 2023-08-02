@@ -164,7 +164,7 @@ const getName = () => {
 }
 
 function clickProfile() {
-    let logout = document.querySelector(".logout");
+    let logout = document.querySelector("#menu");
     if (!logout.classList.contains("logoutShow")){
         logout.classList.add("logoutShow");
     } else {

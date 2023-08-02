@@ -146,6 +146,65 @@ body {
     cursor: pointer;
 }
 
+.menu-container-d-none {
+    display: none;
+}
+
+.menu-container{
+    display: flex !important;
+    align-items: center !important;
+    text-align: center ;
+    flex-direction: column ;
+    padding-top: 10px ;
+    padding-bottom: 10px ;
+    margin: 0 !important;
+}
+
+.menu-button {
+    color: white;
+    cursor: pointer;
+    width: 100%;
+}
+
+.menu-link {
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.menu-link:hover {
+    width: 100%;
+    cursor: pointer;
+    background-color: #29ABE2;
+    box-shadow: 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#menu {
+    background-color: #2A3647;
+    z-index: 1000;
+    position: absolute;
+    right: -24px;
+    top: 70px;
+    width: 180px;
+    transition: all 250ms ease-in-out;
+    filter: drop-shadow(-3px 0px 16px #083a0833);
+    gap: 0;
+    border-radius: 10px 0 10px 10px;
+    display: none;
+}
+
+.hide-overlay-menu {
+    transform: translateX(300px);
+}
+
+.show-overlay-menu {
+    transform: translateX(0px);
+}
+
 /* TOP BAR END */
 
 /* Content-Area*/
