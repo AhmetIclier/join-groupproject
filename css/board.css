@@ -51,7 +51,6 @@ input {
 }
 
 .lupe-img {
-    background-image: url("../../assets/img/icons/lupe.svg");
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 2.5rem;
