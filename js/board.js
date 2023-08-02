@@ -404,6 +404,7 @@ function renderSearchTodo(search) {
     let todoTasks = getBoardTasks('todo');
     todoContainer.innerHTML = '';
 
+    let progressbarNum = 0;
     for (let i = 0; i < todoTasks.length; i++) {
         let title = todoTasks[i].title;
         let description = todoTasks[i].description;
@@ -425,6 +426,8 @@ function renderSearchTodo(search) {
             </div>
             `;
             renderBoardAssignings(todoTasks[i], i);
+            renderProgressBar(todoTasks, todoContainer, progressbarNum)
+            progressbarNum++;
         }
     }
 }

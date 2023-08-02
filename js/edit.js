@@ -29,6 +29,7 @@ function renderSearchProgress(search) {
     progressContainer.innerHTML = '';
     let progressTasks = getBoardTasks('inProgress');
 
+    let progressbarNum = 0;
     for (let i = 0; i < progressTasks.length; i++) {
         let title = progressTasks[i].title;
         let description = progressTasks[i].description;
@@ -50,6 +51,8 @@ function renderSearchProgress(search) {
             </div>
             `;
             renderBoardAssignings(progressTasks[i], i);
+            renderProgressBar(progressTasks, progressContainer, progressbarNum)
+            progressbarNum++;
         }
     }
 }
@@ -64,6 +67,7 @@ function renderSearchFeedback(search) {
     feedbackContainer.innerHTML = '';
     let feedbackTasks = getBoardTasks('feedback');
 
+    let progressbarNum = 0;
     for (let i = 0; i < feedbackTasks.length; i++) {
         let title = feedbackTasks[i].title;
         let description = feedbackTasks[i].description;
@@ -85,6 +89,8 @@ function renderSearchFeedback(search) {
             </div>
             `;
             renderBoardAssignings(feedbackTasks[i], i);
+            renderProgressBar(feedbackTasks,feedbackContainer,  progressbarNum)
+            progressbarNum++;
         }
     }
 }
@@ -99,6 +105,7 @@ function renderSearchDone(search) {
     doneContainer.innerHTML = '';
     let doneTasks = getBoardTasks('done');
 
+    let progressbarNum = 0;
     for (let i = 0; i < doneTasks.length; i++) {
         let title = doneTasks[i].title;
         let description = doneTasks[i].description;
@@ -120,6 +127,8 @@ function renderSearchDone(search) {
             </div>
             `;
             renderBoardAssignings(doneTasks[i], i);
+            renderProgressBar(doneTasks, doneContainer, progressbarNum)
+            progressbarNum++;
         }
     }
 }
