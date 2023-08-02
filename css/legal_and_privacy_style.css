@@ -1,6 +1,6 @@
 .info-container {
     overflow-y: scroll;
-    height: calc(100vh - 90px);
+    height: 100%;
 }
 
 .pd-privacy{

@@ -1,9 +1,17 @@
+.toFlexInTheMiddle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .taskarea {
     display: flex;
     justify-content: center;
     align-items: center;
     background: #f6f7f8;
     width: 100%;
+    max-width: 1080px;
     padding-left: 3rem;
     box-sizing: border-box;
     font-family: 'Inter';
@@ -161,6 +169,7 @@ input {
 
 .addtask-form-container .dropdown-check {
     height: 15px;
+    width: 1080px;
 }
 .contacts-selection li input {
     width: 50px !important;
@@ -384,4 +393,8 @@ input {
     z-index: 9;
     bottom: 0;
     left: 1.5rem;
+}
+
+.content-wrapper{
+    max-width: 1080px;
 }
