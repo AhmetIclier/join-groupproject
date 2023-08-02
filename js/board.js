@@ -40,6 +40,24 @@ function renderBoardTodos() {
         </div>
         `
         renderBoardAssignings(todos[i], i);
+        renderProgressBar(todos, container, i)
+    }
+}
+
+function renderProgressBar(todos, container, i){
+    let subtasks = todos[i].subtasks;
+    if (subtasks){
+        let progressDiv = container.querySelectorAll(".progress-bar");
+        let completedSubtasks = 0;
+        subtasks.forEach( subtask =>{
+            if (subtask.completed){
+                completedSubtasks++;
+            }
+        })
+        progressDiv[i].innerHTML = `
+            <progress value="${completedSubtasks}" max="${subtasks.length}"></progress>
+            ${completedSubtasks} / ${subtasks.length}
+            `;
     }
 }
 
@@ -333,6 +351,7 @@ function createSubtaskHTML(subtask, isChecked, task, subtaskNum) {
 async function saveCheck(taskId, subtaskNum){
     allTasks[taskId].subtasks[subtaskNum].completed = !allTasks[taskId].subtasks[subtaskNum].completed;
     await uploadTasks();
+    initBoard();
 }
 
 /**
