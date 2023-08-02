@@ -55,4 +55,8 @@ h4 {
     .pd-legal{
         padding: 1rem;
     }
+
+    h1{
+        font-size: 32px !important;
+    }
 }
