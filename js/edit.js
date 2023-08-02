@@ -1,3 +1,55 @@
+
+/**
+ * calls search-functions for every status
+ */
+function searchTask(id) {
+    let search = document.getElementById(id).value;
+    search = search.toLowerCase();
+    renderSearchTodo(search);
+    renderSearchProgress(search);
+    renderSearchFeedback(search);
+    renderSearchDone(search);
+}
+
+function searchTodoTemplate(todoContainer, todoTasks, i) {
+    todoContainer.innerHTML += `
+            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todoTasks[i]['task-id']}')" ondragstart="startDragging(${todoTasks[i]['task-id']})" id="taskId${todoTasks[i]["task-id"]}">
+                <div class="category ${todoTasks[i].catColor}Cat">
+                    <h3>${todoTasks[i].category}</h3>
+                </div>
+                <div class="task-name">
+                    <h4>${todoTasks[i].title}</h4>
+                </div>
+                <div class="task-description">
+                    <span>${todoTasks[i].description}</span>
+                </div>
+                <div class="progress-bar"></div>
+                <div class="worker" id="${todoTasks[i].status}${i}-workers">
+                </div>
+            </div>
+            `;
+}
+
+/**
+ * searches in todo-status tasks
+ * @param {string} search - searched string
+ */
+function renderSearchTodo(search) {
+    let todoContainer = document.getElementById('todo-col');
+    let todoTasks = getBoardTasks('todo');
+    todoContainer.innerHTML = '';
+
+    for (let i = 0; i < todoTasks.length; i++) {
+        let title = todoTasks[i].title;
+        let description = todoTasks[i].description;
+        if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
+            searchTodoTemplate(todoContainer, todoTasks, i);
+            renderBoardAssignings(todoTasks[i], i);
+            renderProgressBar(todoTasks[i], todoContainer, i)
+        }
+    }
+}
+
 /**
  * function to close the popup for editing task
  */
@@ -19,21 +71,8 @@ async function deleteTask(taskID) {
     closeWindow();
 }
 
-/**
- * function to search through  tasks which are in progress (status)
- * 
- * @param {string} search - the string to search in tasks
- */
-function renderSearchProgress(search) {
-    let progressContainer = document.getElementById('progress-col');
-    progressContainer.innerHTML = '';
-    let progressTasks = getBoardTasks('inProgress');
-
-    for (let i = 0; i < progressTasks.length; i++) {
-        let title = progressTasks[i].title;
-        let description = progressTasks[i].description;
-        if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-            progressContainer.innerHTML += `
+function templateRenderSearch(progressContainer, progressTasks, i) {
+    progressContainer.innerHTML += `
             <div class="box-task-design" draggable="true" onclick="openTaskDetails('${progressTasks[i]['task-id']}')" ondragstart="startDragging(${progressTasks[i]['task-id']})" id="taskId${progressTasks[i]["task-id"]}">
                 <div class="category ${progressTasks[i].catColor}Cat">
                     <h3>${progressTasks[i].category}</h3>
@@ -49,10 +88,46 @@ function renderSearchProgress(search) {
                 </div>
             </div>
             `;
+}
+
+/**
+ * function to search through  tasks which are in progress (status)
+ * 
+ * @param {string} search - the string to search in tasks
+ */
+function renderSearchProgress(search) {
+    let progressContainer = document.getElementById('progress-col');
+    progressContainer.innerHTML = '';
+    let progressTasks = getBoardTasks('inProgress');
+
+    for (let i = 0; i < progressTasks.length; i++) {
+        let title = progressTasks[i].title;
+        let description = progressTasks[i].description;
+        if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
+            templateRenderSearch(progressContainer, progressTasks, i);
             renderBoardAssignings(progressTasks[i], i);
             renderProgressBar(progressTasks[i], progressContainer, i)
         }
     }
+}
+
+function templateFeedbackSearch(feedbackContainer, feedbackTasks, i) {
+    feedbackContainer.innerHTML += `
+            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${feedbackTasks[i]['task-id']}')" ondragstart="startDragging(${feedbackTasks[i]['task-id']})" id="taskId${feedbackTasks[i]["task-id"]}">
+                <div class="category ${feedbackTasks[i].catColor}Cat">
+                    <h3>${feedbackTasks[i].category}</h3>
+                </div>
+                <div class="task-name">
+                    <h4>${feedbackTasks[i].title}</h4>
+                </div>
+                <div class="task-description">
+                    <span>${feedbackTasks[i].description}</span>
+                </div>
+                <div class="progress-bar"></div>
+                <div class="worker" id="${feedbackTasks[i].status}${i}-workers">
+                </div>
+            </div>
+            `;
 }
 
 /**
@@ -69,26 +144,30 @@ function renderSearchFeedback(search) {
         let title = feedbackTasks[i].title;
         let description = feedbackTasks[i].description;
         if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-            feedbackContainer.innerHTML += `
-            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${feedbackTasks[i]['task-id']}')" ondragstart="startDragging(${feedbackTasks[i]['task-id']})" id="taskId${feedbackTasks[i]["task-id"]}">
-                <div class="category ${feedbackTasks[i].catColor}Cat">
-                    <h3>${feedbackTasks[i].category}</h3>
-                </div>
-                <div class="task-name">
-                    <h4>${feedbackTasks[i].title}</h4>
-                </div>
-                <div class="task-description">
-                    <span>${feedbackTasks[i].description}</span>
-                </div>
-                <div class="progress-bar"></div>
-                <div class="worker" id="${feedbackTasks[i].status}${i}-workers">
-                </div>
-            </div>
-            `;
+            templateFeedbackSearch(feedbackContainer, feedbackTasks, i);
             renderBoardAssignings(feedbackTasks[i], i);
             renderProgressBar(feedbackTasks[i], feedbackContainer, i)
         }
     }
+}
+
+function templateSearchDone(doneContainer, doneTasks, i) {
+    doneContainer.innerHTML += `
+            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${doneTasks[i]['task-id']}')" ondragstart="startDragging(${doneTasks[i]['task-id']})" id="taskId${doneTasks[i]["task-id"]}">
+                <div class="category ${doneTasks[i].catColor}Cat">
+                    <h3>${doneTasks[i].category}</h3>
+                </div>
+                <div class="task-name">
+                    <h4>${doneTasks[i].title}</h4>
+                </div>
+                <div class="task-description">
+                    <span>${doneTasks[i].description}</span>
+                </div>
+                <div class="progress-bar"></div>
+                <div class="worker" id="${doneTasks[i].status}${i}-workers">
+                </div>
+            </div>
+            `;
 }
 
 /**
@@ -105,40 +184,14 @@ function renderSearchDone(search) {
         let title = doneTasks[i].title;
         let description = doneTasks[i].description;
         if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-            doneContainer.innerHTML += `
-            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${doneTasks[i]['task-id']}')" ondragstart="startDragging(${doneTasks[i]['task-id']})" id="taskId${doneTasks[i]["task-id"]}">
-                <div class="category ${doneTasks[i].catColor}Cat">
-                    <h3>${doneTasks[i].category}</h3>
-                </div>
-                <div class="task-name">
-                    <h4>${doneTasks[i].title}</h4>
-                </div>
-                <div class="task-description">
-                    <span>${doneTasks[i].description}</span>
-                </div>
-                <div class="progress-bar"></div>
-                <div class="worker" id="${doneTasks[i].status}${i}-workers">
-                </div>
-            </div>
-            `;
+            templateSearchDone(doneContainer, doneTasks, i);
             renderBoardAssignings(doneTasks[i], i);
             renderProgressBar(doneTasks[i], doneContainer, i)
         }
     }
 }
 
-/**
- * this function renders the edit view of tasks
- * 
- * @param {number} taskId  - unique id of task
- */
- function editTask(taskId) {
-    document.getElementById('show-details').classList.add('d-none');
-    document.getElementById('edit-task').classList.remove('d-none');
-    let task = allTasks[taskId];
-    let container = document.getElementById('edit-task');
-    container.innerHTML = '';
-
+function editTaskTemplate(container, task, taskId) {
     container.innerHTML = /*html*/`
         <div class="edit-task">
             <div class="close-btn-container" onclick="closeWindow()">
@@ -195,6 +248,20 @@ function renderSearchDone(search) {
     </div>
     <div class="popup-bg" onclick="closeWindow()"></div>
     `;
+}
+
+/**
+ * this function renders the edit view of tasks
+ * 
+ * @param {number} taskId  - unique id of task
+ */
+ function editTask(taskId) {
+    document.getElementById('show-details').classList.add('d-none');
+    document.getElementById('edit-task').classList.remove('d-none');
+    let task = allTasks[taskId];
+    let container = document.getElementById('edit-task');
+    container.innerHTML = '';
+    editTaskTemplate(container, task, taskId);
     showPrioStatusEditView(taskId);
 }
 

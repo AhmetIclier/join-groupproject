@@ -9,15 +9,8 @@ async function initBoard() {
     renderBoardDone();
 }
 
-/**
- * renders all tasks with status 'todo'
- */
-function renderBoardTodos() {
-    let container = document.getElementById('todo-col');
-    container.innerHTML = '';
-    let todos = getBoardTasks('todo');
-    for (let i = 0; i < todos.length; i++) {
-        container.innerHTML += /*html*/`
+function templateBoardTodos(container, todos, i) {
+    container.innerHTML += /*html*/`
         <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
             <div class="category-header">  
                 <div class="category ${todos[i].catColor}Cat">
@@ -38,7 +31,18 @@ function renderBoardTodos() {
              <div id="prio-status"></div>
         </div>
         </div>
-        `
+        `;
+}
+
+/**
+ * renders all tasks with status 'todo'
+ */
+function renderBoardTodos() {
+    let container = document.getElementById('todo-col');
+    container.innerHTML = '';
+    let todos = getBoardTasks('todo');
+    for (let i = 0; i < todos.length; i++) {
+        templateBoardTodos(container, todos, i);
         renderBoardAssignings(todos[i], i);
         renderProgressBar(todos[i], container, i)
     }
@@ -100,15 +104,8 @@ function getBoardTasks(status) {
     }
 }
 
-/**
- * renders all tasks with status 'inProgress'
- */
-function renderBoardProgress() {
-    let container = document.getElementById('progress-col');
-    container.innerHTML = '';
-    let todos = getBoardTasks("inProgress");
-    for (let i = 0; i < todos.length; i++) {
-        container.innerHTML += /*html*/`
+function templateBoardProgress(container, todos, i) {
+    container.innerHTML += /*html*/`
         <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
         <div class="category-header">      
             <div class="category ${todos[i].catColor}Cat">
@@ -129,21 +126,25 @@ function renderBoardProgress() {
             <div class="worker" id="${todos[i].status}${i}-workers">
             </div>
         </div>
-        `
+        `;
+}
+
+/**
+ * renders all tasks with status 'inProgress'
+ */
+function renderBoardProgress() {
+    let container = document.getElementById('progress-col');
+    container.innerHTML = '';
+    let todos = getBoardTasks("inProgress");
+    for (let i = 0; i < todos.length; i++) {
+        templateBoardProgress(container, todos, i);
         renderBoardAssignings(todos[i], i);
         renderProgressBar(todos[i], container, i)
     }
 }
 
-/**
- * renders all tasks with status 'awaiting feedback'
- */
-function renderBoardFeedback() {
-    let container = document.getElementById('feedback-col');
-    container.innerHTML = '';
-    let todos = getBoardTasks('feedback');
-    for (let i = 0; i < todos.length; i++) {
-        container.innerHTML += /*html*/`
+function templateRenderFeedback(container, todos, i) {
+    container.innerHTML += /*html*/`
         <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
         <div class="category-header">
             <div class="category ${todos[i].catColor}Cat">
@@ -164,21 +165,25 @@ function renderBoardFeedback() {
             <div class="worker" id="${todos[i].status}${i}-workers">
             </div>
         </div>
-        `
+        `;
+}
+
+/**
+ * renders all tasks with status 'awaiting feedback'
+ */
+function renderBoardFeedback() {
+    let container = document.getElementById('feedback-col');
+    container.innerHTML = '';
+    let todos = getBoardTasks('feedback');
+    for (let i = 0; i < todos.length; i++) {
+        templateRenderFeedback(container, todos, i);
         renderBoardAssignings(todos[i], i);
         renderProgressBar(todos[i], container, i)
     }
 }
 
-/**
- * renders all tasks with status 'done'
- */
-function renderBoardDone() {
-    let container = document.getElementById('done-col');
-    container.innerHTML = '';
-    let todos = getBoardTasks('done');
-    for (let i = 0; i < todos.length; i++) {
-        container.innerHTML += /*html*/`
+function templateBoardDone(container, todos, i) {
+    container.innerHTML += /*html*/`
         <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todos[i]['task-id']}')" ondragstart="startDragging(${todos[i]['task-id']})" id="taskId${todos[i]["task-id"]}">
         <div class="category-header">   
             <div class="category ${todos[i].catColor}Cat">
@@ -198,7 +203,18 @@ function renderBoardDone() {
             <div class="worker" id="${todos[i].status}${i}-workers">
             </div>
         </div>
-        `
+        `;
+}
+
+/**
+ * renders all tasks with status 'done'
+ */
+function renderBoardDone() {
+    let container = document.getElementById('done-col');
+    container.innerHTML = '';
+    let todos = getBoardTasks('done');
+    for (let i = 0; i < todos.length; i++) {
+        templateBoardDone(container, todos, i);
         renderBoardAssignings(todos[i], i);
         renderProgressBar(todos[i], container, i)
     }
@@ -279,16 +295,7 @@ function openTaskDetails(taskId) {
     getAllTaskInfo(taskId);
 }
 
-/**
- * renders task in detail view
- * 
- * @param {number} taskId  - task id
- */
-function getAllTaskInfo(taskId) {
-    let container = document.getElementById('show-details');
-    container.innerHTML = '';
-
-    const task = allTasks[taskId];
+function templateTaskInfo(container, taskId, task) {
     container.innerHTML = /*html*/`
         <div class="task-info" id="card-detail">
             <div class="close-btn-container" onclick="closeWindow()">
@@ -326,6 +333,19 @@ function getAllTaskInfo(taskId) {
             </div>
         <div class="popup-bg" onclick="closeWindow()"></div>
         `;
+}
+
+/**
+ * renders task in detail view
+ * 
+ * @param {number} taskId  - task id
+ */
+function getAllTaskInfo(taskId) {
+    let container = document.getElementById('show-details');
+    container.innerHTML = '';
+
+    const task = allTasks[taskId];
+    templateTaskInfo(container, taskId, task);
     prioStatusDetailView(taskId);
     loadSubtasks(task);
 }
@@ -383,52 +403,5 @@ function prioStatusDetailView(taskId) {
                     <div class="low activeLow activePick border-status">
                         Low <span class="prio-img"><img src="../img/icons/low_nofill_green.svg" alt=""></span>
                     </div>`;
-    }
-}
-
-/**
- * calls search-functions for every status
- */
-function searchTask(id) {
-    let search = document.getElementById(id).value;
-    search = search.toLowerCase();
-    renderSearchTodo(search);
-    renderSearchProgress(search);
-    renderSearchFeedback(search);
-    renderSearchDone(search);
-}
-
-/**
- * searches in todo-status tasks
- * @param {string} search - searched string
- */
-function renderSearchTodo(search) {
-    let todoContainer = document.getElementById('todo-col');
-    let todoTasks = getBoardTasks('todo');
-    todoContainer.innerHTML = '';
-
-    for (let i = 0; i < todoTasks.length; i++) {
-        let title = todoTasks[i].title;
-        let description = todoTasks[i].description;
-        if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-            todoContainer.innerHTML += `
-            <div class="box-task-design" draggable="true" onclick="openTaskDetails('${todoTasks[i]['task-id']}')" ondragstart="startDragging(${todoTasks[i]['task-id']})" id="taskId${todoTasks[i]["task-id"]}">
-                <div class="category ${todoTasks[i].catColor}Cat">
-                    <h3>${todoTasks[i].category}</h3>
-                </div>
-                <div class="task-name">
-                    <h4>${todoTasks[i].title}</h4>
-                </div>
-                <div class="task-description">
-                    <span>${todoTasks[i].description}</span>
-                </div>
-                <div class="progress-bar"></div>
-                <div class="worker" id="${todoTasks[i].status}${i}-workers">
-                </div>
-            </div>
-            `;
-            renderBoardAssignings(todoTasks[i], i);
-            renderProgressBar(todoTasks[i], todoContainer, i)
-        }
     }
 }
